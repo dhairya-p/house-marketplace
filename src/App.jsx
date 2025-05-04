@@ -24,7 +24,7 @@ function App() {
       </Router>
   
       <div className="container">
-        <h1>Welcome to the App</h1>
+        
       </div>
     </>
   )
