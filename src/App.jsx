@@ -24,7 +24,7 @@ function App() {
       </Router>
   
       <div className="container">
-        
+
       </div>
     </>
   )
