@@ -248,6 +248,7 @@ button {
   color: #00cc66;
   font-weight: 600;
   text-align: right;
+  font-size: 1rem;
 }
 
 .signInBar,
@@ -674,7 +675,7 @@ button {
 .profileDetailsHeader {
   display: flex;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 700px;
 }
 
 .personalDetailsText {
@@ -692,7 +693,7 @@ button {
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.2);
-  max-width: 500px;
+  max-width: 700px;
 }
 
 .profileDetails {
