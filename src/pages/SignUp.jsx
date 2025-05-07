@@ -5,10 +5,10 @@ import { setDoc, doc, serverTimestamp } from "firebase/firestore"
 import { db } from "../firebase.config.js"
 import ArrowRightIconUrl from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIconUrl from '../assets/svg/visibilityIcon.svg'
+import { toast } from "react-toastify"
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
-  const [passwordMatch, setPasswordMatch] = useState(true)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -27,8 +27,7 @@ function SignUp() {
   const onSubmit = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      console.log("Passwords do not match")
-      setPasswordMatch(false)
+      toast.error("Passwords don't match")
       return
     }
     try {
@@ -46,15 +45,11 @@ function SignUp() {
       delete formDataCopy.confirmPassword   // delete password and confirmPassword from db data for security reasons
       formDataCopy.timestamp = serverTimestamp()
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
-
-
-
-
-
       setPasswordMatch(true)
       navigate('/')
+      toast.success("Registration successful")
     } catch (error) {
-      console.log("Error creating user", error)
+      toast.error("Something went wrong with the registration")
     }
 
   }
@@ -118,8 +113,6 @@ function SignUp() {
           />
         </div>
 
-        {!passwordMatch && <p className="passwordMismatch">Passwords do not match</p>}
-        
         <div className="signUpBar">
           <p className="signUpText">Sign Up</p>
           <button className="signUpButton">

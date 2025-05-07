@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ArrowRightIconUrl from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIconUrl from '../assets/svg/visibilityIcon.svg'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { toast } from "react-toastify"
 
 
 function SignIn() {
@@ -26,8 +27,9 @@ function SignIn() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredential.user
       navigate('/')
+      toast.success("Logged in successfully")
     } catch (error) {
-      console.log("Error signing in", error)
+      toast.error("Invalid User Credentials")
     }
   }
 
@@ -37,7 +39,7 @@ function SignIn() {
         <p className="pageHeader">Welcome Back!</p>
      </header>
 
-      <form>
+      <form onSubmit={onSubmit}>
         <input 
           type="email" 
           className="emailInput" 
