@@ -4,6 +4,10 @@ import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import { updateDoc, doc } from "firebase/firestore"
 import { db } from "../firebase.config"
+import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg"
+import homeIcon from "../assets/svg/homeIcon.svg"
+import deleteIcon from "../assets/svg/deleteIcon.svg"
+import editIcon from "../assets/svg/editIcon.svg"
 
 function Profile() {
   const auth = getAuth()
@@ -91,6 +95,24 @@ function Profile() {
           <Link to="/forgot-password" className="forgotPasswordLink">
             Forgot Password?
           </Link>
+        </div>
+        <Link to="/create-listing" className="createListing">
+          <img src={homeIcon} alt="home" />
+          <p>Sell or rent your property</p>
+          <img src={arrowRight} alt="arrow right" />
+        </Link>
+        
+        <div className="profileListings">
+          <p className="profileListingsText">Your Listings</p>
+          <ul className="profileListingsList">
+              <li className="profileListingsListItem">
+              <p>House</p>
+              <p>For Sale</p>
+              <p>2 days ago</p>
+              <img src={deleteIcon} alt="delete" />
+              <img src={editIcon} alt="edit" />
+            </li>
+          </ul>
         </div>
       </main>
     </div>)
