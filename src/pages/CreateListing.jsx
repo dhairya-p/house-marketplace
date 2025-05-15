@@ -93,17 +93,26 @@ function CreateListing() {
     let location
 
     if (geolocationEnabled) {
+      const apiKey = import.meta.env.VITE_GEOCODE_API_KEY;
       const res = await fetch (
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA0d6w2fbs4-ib24wUIBqNQ_DNLa8ZjKqE`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
       )
-      const data = res.json()
-      
+      const data = await res.json()
+
       console.log(data)
 
-      } else {
-        geolocation.lat = latitude
-        geolocation.lng = longitude
-        location = address
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+      geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
+      location = data.status === 'ZERO_RESULTS' ? undefined: data.results[0].formatted_address
+      if (location === undefined || location.includes('undefined')) {
+        setLoading(false)
+        toast.error('Invalid address')
+        return
+      }
+    } else {
+      geolocation.lat = latitude
+      geolocation.lng = longitude
+      location = address
     }
 
     setLoading(false)
