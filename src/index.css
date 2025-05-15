@@ -178,6 +178,11 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbarListItem:hover {
+  transform: scale(1.1);
 }
 
 .navbarListItemName,
@@ -250,6 +255,13 @@ button {
   font-weight: 600;
   text-align: right;
   font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+.forgotPasswordLink:hover {
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+  color: #00994d;
+  padding-right: 5px;
 }
 
 .signInBar,
@@ -267,7 +279,17 @@ button {
 .signInText,
 .signUpText {
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
+
+.signInButton:hover,
+.signUpButton:hover,
+.signInText:hover,
+.signUpText:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.02);
+}
+
 @media (min-width: 1024px) {
   .signInBar,
   .signUpBar {
@@ -290,7 +312,16 @@ button {
   height: 3rem;
   background-color: #00cc66;
   border-radius: 50%;
+  transition: all 0.2s ease-in-out;
 }
+
+.signInButton:hover,
+.signUpButton:hover {
+  background-color: #00994d;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.02);
+}
+
 @media (min-width: 1024px) {
   .signInButton,
   .signUpButton {
@@ -306,6 +337,12 @@ button {
   align-items: center;
 }
 
+.socialIconDiv:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 .socialIconDiv {
   cursor: pointer;
   display: flex;
@@ -318,6 +355,7 @@ button {
   background-color: #ffffff;
   border-radius: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
 }
 
 .socialIconImg {
@@ -331,6 +369,13 @@ button {
   text-align: center;
   margin-bottom: 3rem;
   font-size: 1.3rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.registerLink:hover {
+  transition: all 0.2s ease-in-out;
+  color: #00994d;
+  transform: scale(1.03);
 }
 
 @media (min-width: 1217px) {
@@ -430,6 +475,12 @@ button {
   border-radius: 1.5rem;
   object-fit: cover;
   margin: 0 auto;
+  transition: all 0.2s ease-in-out;
+}
+
+.exploreCategoryImg:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
 }
 
 .exploreCategoryName {
@@ -451,6 +502,12 @@ button {
   align-items: center;
   margin-bottom: 1rem;
   position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.categoryListing:hover {
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
 }
 
 .categoryListingLink {
@@ -463,6 +520,7 @@ button {
   border-radius: 1.5rem;
   object-fit: cover;
 }
+
 @media (min-width: 1024px) {
   .categoryListingImg {
     width: 19%;
@@ -673,6 +731,13 @@ button {
   background-color: #00cc66;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.logOut:hover {
+  background-color: #00994d;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.04);
 }
 
 .profileDetailsHeader {
@@ -689,6 +754,13 @@ button {
   cursor: pointer;
   font-weight: 600;
   color: #00cc66;
+  transition: all 0.2s ease-in-out;
+}
+
+.changePersonalDetails:hover {
+  transform: scale(1.04);
+  transition: all 0.2s ease-in-out;
+  color: #00994d;
 }
 
 .profileCard {
@@ -744,6 +816,13 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.createListing:hover {
+  background-color: #ffffff71;
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
 }
 
 .listingText {

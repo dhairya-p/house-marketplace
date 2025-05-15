@@ -101,19 +101,6 @@ function Profile() {
           <p>Sell or rent your property</p>
           <img src={arrowRight} alt="arrow right" />
         </Link>
-        
-        <div className="profileListings">
-          <p className="profileListingsText">Your Listings</p>
-          <ul className="profileListingsList">
-              <li className="profileListingsListItem">
-              <p>House</p>
-              <p>For Sale</p>
-              <p>2 days ago</p>
-              <img src={deleteIcon} alt="delete" />
-              <img src={editIcon} alt="edit" />
-            </li>
-          </ul>
-        </div>
       </main>
     </div>)
 }
