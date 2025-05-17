@@ -5,14 +5,19 @@ import { db } from "../firebase.config"
 import { getAuth } from "firebase/auth"
 import Spinner from "../components/Spinner"
 import ShareIcon from "../assets/svg/shareIcon.svg"
-
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/autoplay';
 
 function Listing() {
   const [listing, setListing] = useState(null)
   const [loading, setLoading] = useState(true)
   const [shareLinkCopied, setShareLinkCopied] = useState(false)
-  
-  const [contactLandlord, setContactLandlord] = useState(false)
 
   const params = useParams()
   const auth = getAuth()
@@ -25,7 +30,6 @@ function Listing() {
 
       if (docSnap.exists()) {
         setListing(docSnap.data())
-        console.log(docSnap.data())
         setLoading(false)
       } else {
         navigate('/not-found')
@@ -40,7 +44,27 @@ function Listing() {
 
   return <main>
     {/* SLIDER */}
-
+    <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+      spaceBetween={50}
+      autoplay={{ delay: 3000 , disableOnInteraction: false }}
+      slidesPerView={1}
+      navigation
+      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
+    >
+      {listing.imgUrls.map((url, index) => (
+        <SwiperSlide key={index}>
+          <div
+            style={{
+              background: `url(${url}) center no-repeat`,
+              backgroundSize: 'cover'
+            }}
+            className="swiperSlideDiv"
+          ></div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
     {/* SHARE ICON */}
     <div 
       className="shareIconDiv" 
@@ -97,7 +121,24 @@ function Listing() {
         Location
       </p>
 
-      {/* MAP */}
+      <div className="leafletContainer">
+        <MapContainer style={{height: '100%', width: '100%'}} 
+          center={[listing.geolocation.lat, listing.geolocation.lng]} 
+          zoom={13} 
+          scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker 
+            position={[listing.geolocation.lat, listing.geolocation.lng]} 
+          >
+            <Popup>
+              {listing.location}
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
       {auth.currentUser?.uid !== listing.userRef && (
         <Link to={`/contact/${listing.userRef}?listingName=${listing.name}`} className="primaryButton">
           Contact Landlord
