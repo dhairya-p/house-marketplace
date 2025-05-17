@@ -86,6 +86,9 @@ button {
   position: absolute;
   top: -3%;
   right: -2%;
+  fill: red;
+  stroke: red;
+  color: red;
 }
 
 .editIcon {
@@ -505,6 +508,10 @@ button {
   padding: 0;
 }
 
+.listingsList {
+  margin-left: -2rem;
+}
+
 .categoryListing {
   display: flex;
   justify-content: space-between;
@@ -512,11 +519,7 @@ button {
   margin-bottom: 1rem;
   position: relative;
   transition: all 0.2s ease-in-out;
-}
-
-.categoryListing:hover {
-  transform: scale(1.01);
-  transition: all 0.2s ease-in-out;
+  margin-right: 1rem;
 }
 
 .categoryListingLink {

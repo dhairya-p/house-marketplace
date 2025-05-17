@@ -60,7 +60,7 @@ function Slider() {
             <SwiperSlide key={id} onClick={() => navigate(`/category/${data.type}/${id}`)}>
               <div style={{
                 cursor: 'pointer',
-                'border-radius': '1.5rem',
+                borderRadius: '1.5rem',
                 background: `url(${data.imgUrls[0]}) center no-repeat`, 
                 backgroundSize: 'cover'}} 
                 className="swiperSlideDiv">

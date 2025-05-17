@@ -2,12 +2,11 @@ import { getAuth, updateProfile } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
-import { updateDoc, doc } from "firebase/firestore"
+import { updateDoc, doc, deleteDoc, collection, getDocs, query, where, orderBy } from "firebase/firestore"
 import { db } from "../firebase.config"
 import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg"
 import homeIcon from "../assets/svg/homeIcon.svg"
-import deleteIcon from "../assets/svg/deleteIcon.svg"
-import editIcon from "../assets/svg/editIcon.svg"
+import ListingItem from "../components/ListingItem"
 
 function Profile() {
   const auth = getAuth()
@@ -25,6 +24,8 @@ function Profile() {
   const { name, email } = formData
   const [changeDetails, setChangeDetails] = useState(false)
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [listings, setListings] = useState(null)
 
   const onSubmit = async () => {
     try {
@@ -58,10 +59,45 @@ function Profile() {
   }
     , [auth])
 
+
+
+  useEffect(() => {
+    const fetchUserListings = async () => {
+      setLoading(true)
+      const listingsRef = collection(db, "listings")
+      const q = query(listingsRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"))
+      const querySnap = await getDocs(q)
+      const listings = []
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data()
+        })
+      })
+      setListings(listings)
+      setLoading(false)
+    }
+    fetchUserListings()
+  }, [auth.currentUser.uid])
+
+
   const onLogout = () => {
     auth.signOut()
     navigate('/')
     toast.success("Logged out successfully")
+  }
+
+  const onDelete = async (listingId) => {
+    if (window.confirm("Are you sure you want to delete this listing?")) {
+      await deleteDoc(doc(db, "listings", listingId))
+      const updatedListings = listings.filter((listing) => listing.id !== listingId)
+      setListings(updatedListings)
+      toast.success("Listing deleted successfully")
+    }
+  }
+
+  const onEdit = (listingId) => {
+    navigate(`/edit-listing/${listingId}`)
   }
 
   return (
@@ -101,6 +137,23 @@ function Profile() {
           <p>Sell or rent your property</p>
           <img src={arrowRight} alt="arrow right" />
         </Link>
+        {!loading && listings?.length > 0 && (
+          <>
+            <p className="listingText">Your Listings</p>
+            <ul className="listingsList">
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id} 
+                  listing={listing.data} 
+                  id={listing.id} 
+                  onDelete={onDelete}
+                  onEdit={onEdit}
+                /> 
+              ))}
+
+            </ul>
+          </>
+        )}
       </main>
     </div>)
 }
